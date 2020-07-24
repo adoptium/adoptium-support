@@ -46,19 +46,26 @@ Java version:
 Paste the entire output of java -version.
 -->
 
-Your operating system and platform:
+What is your operating system and platform?
 
 <!--
 For example, "Ubuntu 18.04 on ARM64" or "Windows 10 2004 on x86-64"
 -->
 
-Did it work before:
+How did you install Java?
+
+<!--
+Whether you used a binary archive (zip, tar.gz), an installer package (MSI, rpm,
+etc.), a version manager (jabba, jenv, etc.).
+-->
+
+Did it work before?
 
 <!--
 If so, please specify what changed.
 -->
 
-Did you test with other Java versions:
+Did you test with other Java versions?
 
 <!--
 Please specify exactly what Java versions you tested with, for example by
