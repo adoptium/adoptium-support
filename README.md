@@ -1,4 +1,4 @@
-# openjdk-support
+# adoptium-support
 
 This repository is used to track issues raised by end-users against the
 adoptopenjdk binaries.
