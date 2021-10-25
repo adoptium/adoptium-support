@@ -2,12 +2,12 @@ blank_issues_enabled: false
 
 contact_links:
 - name: Chat 💬
-  url: https://adoptopenjdk.net/slack.html
+  url: https://adoptium.net/slack.html
   about: "Join our Slack channel #support to get help diagnosing your problems."
 
-- name: Commercial support 🏥
-  url: https://adoptopenjdk.net/support.html#commercial-support
-  about: Commercial support options for AdoptOpenJDK
+- name: Docker 🐋
+  url: https://github.com/adoptium/containers/issues/new
+  about: "Please report issues with the `eclipse-temurin` Docker images here."
 
 - name: JDK Bug System ☕
   url: https://bugs.openjdk.java.net/secure/Dashboard.jspa
