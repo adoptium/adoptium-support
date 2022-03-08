@@ -1,6 +1,6 @@
 ---
 name: Question ❓ 
-about: We're happy to answer questions regarding the installation or configuration of AdoptOpenJDK.
+about: We're happy to answer questions regarding the installation or configuration of Eclipse Temurin.
 title: ''
 label: question
 assignees: ''
