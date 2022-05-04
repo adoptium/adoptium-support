@@ -1,0 +1,22 @@
+name: "Close stale issues"
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v5
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: >
+          We are marking this issue as stale because it has not been updated for a while. This is just a way to keep the support issues queue manageable.
+          
+          It will be closed soon unless the stale label is removed by a committer, or a new comment is made.
+        stale-issue-label: 'stale'
+        exempt-issue-labels: 'jbs:needs-report'
+        days-before-stale: 90
+        days-before-close: 30
+        remove-stale-when-updated: true
