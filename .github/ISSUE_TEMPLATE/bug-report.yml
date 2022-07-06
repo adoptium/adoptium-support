@@ -41,7 +41,7 @@ body:
       required: true
   - type: markdown
     attributes:
-      value: "## Triaging Information"
+      value: "# Triaging Information"
   - type: input
     id: java-version
     attributes:
