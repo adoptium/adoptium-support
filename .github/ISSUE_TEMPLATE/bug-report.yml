@@ -1,6 +1,5 @@
 name: Report a bug 🐛
 description: Is something broken? Let us know!
-title: ""
 labels: ["bug"]
 body:
   - type: markdown
