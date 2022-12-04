@@ -74,9 +74,9 @@ body:
       description: |
         Please specify exactly what Java versions you tested with, for example by pasting the output of `java --version`.
 
-        If available, test with an upstream build:
+        If available, test with a supported build:
 
-          * https://adoptopenjdk.net/upstream.html (8, 11)
+          * https://adoptium.net/marketplace
           * http://jdk.java.net/ (anything newer than 8, 11)
       render: shell
   - type: textarea
