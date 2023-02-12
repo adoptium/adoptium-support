@@ -16,6 +16,6 @@ It's important to note that Adoptium is a binary provider and that source code f
 
 ## Community Support
 
-There is free (best efforts) based support via our Slack community which you can join at [https://adoptium.net/slack.html](https://adoptium.net/slack.html).
+There is free (best efforts) based support via our Slack community which you can join at [https://adoptium.net/slack](https://adoptium.net/slack).
 
-For more options on support, see [https://adoptium.net/support.html](https://adoptium.net/support.html).
+For more options on support, see [https://adoptium.net/support](https://adoptium.net/support).
