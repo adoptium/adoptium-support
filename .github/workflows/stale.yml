@@ -24,8 +24,9 @@ jobs:
           
           It will be closed soon unless the stale label is removed by a committer, or a new comment is made.
         stale-issue-label: 'stale'
-        exempt-issue-labels: 'jbs:needs-report'
+        exempt-issue-labels: 'jbs:needs-report,keep'
         days-before-stale: 90
         days-before-close: 30
         operations-per-run: 100
         remove-stale-when-updated: true
+        labels-to-add-when-unstale: 'keep'
