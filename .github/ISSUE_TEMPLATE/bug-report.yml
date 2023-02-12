@@ -66,7 +66,14 @@ body:
     attributes:
       label: Did it work before?
       description: Did this work with a previous Java version? If so, please specify what changed.
-      render: shell
+      render: Shell
+  - type: textarea
+    id: latest-versions
+    attributes:
+      label: Did you test with the latest update version?
+      description: |
+        Please download the latest update version from https://adoptium.net and test with that.
+      render: Shell
   - type: textarea
     id: other-versions
     attributes:
@@ -76,12 +83,12 @@ body:
 
         If available, test with a supported build:
 
-          * https://adoptium.net/marketplace
-          * http://jdk.java.net/ (anything newer than 8, 11)
-      render: shell
+        * https://adoptium.net/marketplace
+        * http://jdk.java.net/
+      render: Shell
   - type: textarea
     id: logs
     attributes:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      render: Shell
