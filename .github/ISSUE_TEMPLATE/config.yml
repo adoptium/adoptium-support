@@ -1,14 +1,18 @@
 blank_issues_enabled: false
 
 contact_links:
-- name: Chat 💬
-  url: https://adoptium.net/slack.html
-  about: "Join our Slack channel #support to get help diagnosing your problems."
+  - name: Minecraft Java Edition Related Issue 🔐
+    url: https://bugs.mojang.com/projects/MC/summary
+    about: Please submit Minecraft Java Edition related issues to the Mojang Issue Tracker First :-).
 
-- name: Docker 🐋
-  url: https://github.com/adoptium/containers/issues/new
-  about: "Please report issues with the `eclipse-temurin` Docker images here."
+  - name: Chat 💬
+    url: https://adoptium.net/slack.html
+    about: "Join our Slack channel #support to get help diagnosing your problems."
 
-- name: JDK Bug System ☕
-  url: https://bugs.openjdk.java.net/secure/Dashboard.jspa
-  about: You can search for known bugs in the JDK Bug System.
+  - name: Docker 🐋
+    url: https://github.com/adoptium/containers/issues/new
+    about: "Please report issues with the `eclipse-temurin` Docker images here."
+
+  - name: JDK Bug System ☕
+    url: https://bugs.openjdk.java.net/secure/Dashboard.jspa
+    about: You can search for known bugs in the JDK Bug System.

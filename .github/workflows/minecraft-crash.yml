@@ -1,0 +1,140 @@
+name: Check Minecraft crash
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check-minecraft-crash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c #v3.6.0
+        with:
+          node-version: 16
+      - run: npm install axios
+      - name: Check Minecraft crash
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975 # v6.4.0
+        with:
+          script: |
+            // Strings which indicate that Minecraft is modded
+            const moddedStrings = [
+              'net.fabricmc.loader.launch.knot.KnotClient',
+              'net.fabricmc.loader.impl.launch.knot.KnotClient', // new class name
+              '--version fabric-loader-',
+              '--tweakClass optifine.OptiFineTweaker',
+            ]
+
+            const axios = require('axios')
+
+            async function httpGet(url) {
+              const result = await axios.get(url, {
+                responseType: 'text'
+              })
+              const status = result.status
+              const data = result.data
+              if (status < 200 || status >= 300) {
+                throw new Error(`GET request to ${url} failed with ${status} '${result.statusText}': ${data}`)
+              }
+              return data
+            }
+
+            const issueNumber = context.issue.number
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+            const issueData = (await github.rest.issues.get({
+              owner: owner,
+              repo: repo,
+              issue_number: issueNumber,
+            })).data
+            const issueTitle = issueData.title
+            const issueBody = issueData.body
+
+            // Uses negative lookbehind and lookahead to match start and end of string as well
+            const minecraftRegex = /(?<![a-z])Minecraft(?![a-z])/i
+            let isMinecraftIssue = minecraftRegex.test(issueTitle) || minecraftRegex.test(issueBody)
+
+            const foundModdedStrings = moddedStrings.filter(s => issueBody.includes(s))
+            if (foundModdedStrings.length === 0) {
+              console.log('Did not find modded string in issue body, searching attachments')
+              // Try searching in attachments
+              // There is currently no API so try to find URL then get attachment content, see https://github.community/t/get-files-attached-in-issue/117443
+              const attachmentPattern = new RegExp(`https://github\\.com/${owner}/${repo}/files/\\d+/[a-zA-Z0-9_\\-.]+`, 'g')
+              const attachmentUrls = Array.from(issueBody.matchAll(attachmentPattern), m => m[0])
+              console.log('Found attachment URLs', attachmentUrls)
+              for (const url of attachmentUrls) {
+                let attachment = undefined
+                try {
+                  attachment = await httpGet(url)
+                } catch (e) {
+                  // Only log message because complete error is rather verbose
+                  console.log('Failed getting attachment for ' + url, e.message)
+                  continue
+                }
+
+                if (!isMinecraftIssue) {
+                  isMinecraftIssue = minecraftRegex.test(attachment)
+                  if (isMinecraftIssue) {
+                    console.log('Found Minecraft string in attachment')
+                  }
+                }
+
+                moddedStrings.forEach(s => {
+                  if (attachment.includes(s)) {
+                    foundModdedStrings.push(s)
+                  }
+                })
+              }
+            }
+
+            let isCrashFromModdedMinecraft = foundModdedStrings.length > 0
+
+            if (isCrashFromModdedMinecraft) {
+              console.log('Found modded strings', foundModdedStrings)
+            } else {
+              console.log('Did not find modded strings')
+            }
+            isMinecraftIssue = isMinecraftIssue || isCrashFromModdedMinecraft
+            console.log('Is Minecraft issue: ' + isMinecraftIssue)
+
+            if (isMinecraftIssue) {
+              let commentBody
+              if (isCrashFromModdedMinecraft) {
+                // Don't tell user to report modded crashes on Mojang's bug tracker; they will be considered Invalid
+                commentBody = (
+                  'Thank you for the report!\n'
+                  + 'It looks like you are using a modified version of Minecraft. The following was detected in your crash report:\n```\n'
+                  + foundModdedStrings.join('\n')
+                  + '\n```\nPlease report this crash to the mod creator. If you can also reproduce this crash without having any mods installed, please submit this issue over at the [Mojang bug tracker](https://bugs.mojang.com/projects/MC/summary). '
+                  + 'Please search for existing reports first; in case you do not find any, create a new report and let us know about the issue number here (e.g. `MC-123456`).'
+                )
+              } else {
+                commentBody = (
+                  'Thank you for the report!\n'
+                  + 'Please submit this issue over at the [Mojang bug tracker](https://bugs.mojang.com/projects/MC/summary). '
+                  + 'Please search for existing reports first; in case you do not find any, create a new report and let us know about the issue number here (e.g. `MC-123456`). '
+                  + 'The Mojang team will take the first look. If an OpenJDK bug is identified, the Mojang team will contact the Microsoft Build of OpenJDK team to address the issue.'
+                )
+              }
+
+              github.rest.issues.createComment({
+                owner: owner,
+                repo: repo,
+                issue_number: issueNumber,
+                body: commentBody
+              })
+
+              // Add Minecraft label
+              github.rest.issues.addLabels({
+                owner: owner,
+                repo: repo,
+                issue_number: issueNumber,
+                labels: ['Minecraft']
+              })
+
+              // We will close any Minecraft-related issue automatically
+              github.rest.issues.update({
+                owner: owner,
+                repo: repo,
+                issue_number: issueNumber,
+                state: 'closed'
+              })
+            }
