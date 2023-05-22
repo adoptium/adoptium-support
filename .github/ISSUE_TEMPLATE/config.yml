@@ -6,7 +6,7 @@ contact_links:
     about: Please submit Minecraft Java Edition related issues to the Mojang Issue Tracker First :-).
 
   - name: Chat 💬
-    url: https://adoptium.net/slack.html
+    url: https://adoptium.net/slack
     about: "Join our Slack channel #support to get help diagnosing your problems."
 
   - name: Docker 🐋
