@@ -13,6 +13,16 @@ body:
     validations:
       required: true
   - type: textarea
+    id: latest-versions
+    attributes:
+      label: Did you test with the latest update version?
+      description: |
+        WARNING: We only support the latest (aka point or trivial) update version for each major/LTS version we support.
+        If you do not test with the latest update version, then this bug will not be accepted.
+        
+        Please download the latest update version from https://adoptium.net/temurin/releases/ and test with that.
+      render: Shell
+  - type: textarea
     id: reproduce
     attributes:
       label: Please provide steps to reproduce where possible
@@ -66,13 +76,6 @@ body:
     attributes:
       label: Did it work before?
       description: Did this work with a previous Java version? If so, please specify what changed.
-      render: Shell
-  - type: textarea
-    id: latest-versions
-    attributes:
-      label: Did you test with the latest update version?
-      description: |
-        Please download the latest update version from https://adoptium.net and test with that.
       render: Shell
   - type: textarea
     id: other-versions
