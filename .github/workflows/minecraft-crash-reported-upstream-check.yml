@@ -5,6 +5,8 @@ on:
 
 jobs:
   check-reported-upstream:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - name: Check reported upstream
