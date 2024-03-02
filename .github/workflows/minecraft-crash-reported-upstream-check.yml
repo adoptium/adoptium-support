@@ -7,6 +7,7 @@ jobs:
   check-reported-upstream:
     permissions:
       issues: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Check reported upstream
