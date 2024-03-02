@@ -5,6 +5,9 @@ on:
 
 jobs:
   check-minecraft-crash:
+    permissions:
+      issues: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 #v4.0.2
