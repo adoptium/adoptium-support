@@ -22,7 +22,7 @@ body:
         
         Please download the latest update version from https://adoptium.net/temurin/releases/ and test with that.
       options:
-        - label: Yes
+        - label: "Yes"
   - type: textarea
     id: reproduce
     attributes:
