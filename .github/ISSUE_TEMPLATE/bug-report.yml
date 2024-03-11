@@ -19,10 +19,10 @@ body:
       description: |
         WARNING: We only support the latest (aka point or trivial) update version for each major/LTS version we support.
         If you do not test with the latest update version, then this bug will not be accepted.
-      options:
-        - label: "Yes"
         
         Please download the latest update version from https://adoptium.net/temurin/releases/ and test with that.
+      options:
+        - label: Yes
   - type: textarea
     id: reproduce
     attributes:
