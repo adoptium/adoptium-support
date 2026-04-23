@@ -2,6 +2,7 @@
 on:
   issues:
     types: [opened, edited]
+  roles: [admin, maintainer, write, read]
   workflow_dispatch:
     inputs:
       issue-number:
