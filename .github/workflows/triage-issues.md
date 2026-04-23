@@ -24,6 +24,8 @@ features:
 safe-outputs:
   add-comment:
     max: 1
+  update-issue:
+    max: 1
 
 concurrency:
   group: triage-issue-${{ github.event.inputs.issue-number || github.event.issue.number }}
@@ -125,19 +127,49 @@ each might be related.
 
 If no similar issues are found, state that explicitly.
 
-### 4. Suggest labels
+### 4. Search the Oracle JDK Bug System (JBS)
 
-Based on your analysis, suggest appropriate labels for the issue. Consider:
+Search the [JDK Bug System](https://bugs.openjdk.java.net) for related upstream
+issues. Use the error messages, stack traces, and symptoms from the report to
+construct your search. Look for:
+
+- Matching exception types and error messages
+- Same affected component (e.g., `hotspot`, `core-libs`, `client-libs`,
+  `security-libs`, `javafx`)
+- Same Java version or version range
+- Similar platform or OS
+
+If you find potentially related JBS issues, list up to 5 of the most relevant
+ones with:
+
+- The JBS issue ID (e.g., `JDK-8301234`)
+- A link to the issue (e.g., `https://bugs.openjdk.java.net/browse/JDK-8301234`)
+- The issue title / summary
+- Its current status (Open, Resolved, Closed) and fix version if available
+- A brief note on why it may be related
+
+If the issue appears to match a known upstream bug, note this prominently in
+your triage summary and add the `upstream` label.
+
+If no related JBS issues are found, state that explicitly.
+
+### 5. Apply labels
+
+Based on your analysis, apply appropriate labels to the issue. Choose from:
 
 - **Component labels**: e.g., `installer`, `jlink`, `jpackage`, `crypto`,
   `rendering`, `fonts`, `networking`, `gc`, `performance`
 - **Platform labels**: e.g., `windows`, `macos`, `linux`, `aarch64`, `x64`,
-  `s390x`, `ppc64le`, `alpine`
+  `s390x`, `ppc64le`, `alpine-linux`
 - **Status labels**: e.g., `needs-info` (if the report is incomplete),
   `upstream` (if it appears to be an OpenJDK issue)
 - **Version labels**: e.g., `jdk8`, `jdk11`, `jdk17`, `jdk21`, `jdk23`
 
-### 5. Format your response
+Apply all labels that are relevant. If no existing label fits, create a new one
+following the same naming conventions (lowercase, hyphen-separated). Do not
+remove any existing labels that were already on the issue.
+
+### 6. Format your response
 
 Structure your triage comment as follows:
 
@@ -153,8 +185,11 @@ Structure your triage comment as follows:
 ### Similar Issues
 [List of related issues with links, or "No similar issues found"]
 
-### Suggested Labels
-[Comma-separated list of suggested labels]
+### Related JBS Issues
+[List of related JDK Bug System issues with IDs, links, and status, or "No related JBS issues found"]
+
+### Labels Applied
+[Comma-separated list of labels applied to the issue]
 ```
 
 ## Guidelines
@@ -162,7 +197,7 @@ Structure your triage comment as follows:
 - Be polite, professional, and welcoming — many reporters are new to open source.
 - Do NOT close issues — only comment with your triage analysis.
 - Do NOT assign issues to specific people.
-- Do NOT make changes to the repository — this is a read-only analysis.
+- Do NOT make changes to the repository beyond adding labels.
 - Keep your comment concise. Avoid lengthy explanations when a link or short
   sentence will do.
 - If the issue is clearly a question rather than a bug, suggest the reporter
