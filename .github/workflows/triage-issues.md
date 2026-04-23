@@ -26,6 +26,8 @@ safe-outputs:
     max: 1
   update-issue:
     max: 1
+  noop:
+    report-as-issue: false
 
 concurrency:
   group: triage-issue-${{ github.event.inputs.issue-number || github.event.issue.number }}
