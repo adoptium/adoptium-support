@@ -13,6 +13,11 @@ permissions:
   contents: read
   issues: read
 
+tools:
+  github:
+    toolsets: [context, repos, issues, users]
+    min-integrity: none
+
 features:
   copilot-requests: true
 
