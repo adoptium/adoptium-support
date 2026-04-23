@@ -2,6 +2,12 @@
 on:
   issues:
     types: [opened, edited]
+  workflow_dispatch:
+    inputs:
+      issue-number:
+        description: "Issue number to triage"
+        required: true
+        type: number
 
 permissions:
   contents: read
@@ -15,7 +21,7 @@ safe-outputs:
     max: 1
 
 concurrency:
-  group: triage-issue-${{ github.event.issue.number }}
+  group: triage-issue-${{ github.event.inputs.issue-number || github.event.issue.number }}
   cancel-in-progress: true
 
 timeout-minutes: 10
