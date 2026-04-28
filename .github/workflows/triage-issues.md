@@ -25,6 +25,8 @@ features:
 safe-outputs:
   add-comment:
     max: 1
+  add-labels:
+    max: 5
   update-issue:
     max: 1
   noop:
