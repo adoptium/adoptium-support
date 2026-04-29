@@ -31,6 +31,24 @@ safe-outputs:
     max: 1
   noop:
     report-as-issue: false
+  allowed-domains:
+    - github.com
+    - "*.github.com"
+    - "*.github.io"
+    - adoptium.net
+    - "*.adoptium.net"
+    - bugs.openjdk.java.net
+    - openjdk.java.net
+    - "*.openjdk.org"
+    - openjdk.org
+    - stackoverflow.com
+    - "*.stackoverflow.com"
+    - "*.oracle.com"
+    - "*.microsoft.com"
+    - "*.redhat.com"
+    - "*.apache.org"
+    - "*.eclipse.org"
+    - "*.java.net"
 
 concurrency:
   group: triage-issue-${{ github.event.inputs.issue-number || github.event.issue.number }}
