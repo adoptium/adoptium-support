@@ -13,14 +13,12 @@ on:
 permissions:
   contents: read
   issues: read
+  copilot-requests: write
 
 tools:
   github:
     toolsets: [context, repos, issues, users]
     min-integrity: none
-
-features:
-  copilot-requests: true
 
 safe-outputs:
   add-comment:
