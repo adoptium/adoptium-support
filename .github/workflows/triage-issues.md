@@ -20,6 +20,11 @@ tools:
     toolsets: [context, repos, issues, users]
     min-integrity: none
 
+network:
+  allowed:
+    - defaults
+    - "bugs.openjdk.org"
+
 safe-outputs:
   add-comment:
     max: 1
