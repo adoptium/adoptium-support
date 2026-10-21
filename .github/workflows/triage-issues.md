@@ -20,6 +20,8 @@ engine:
   model: claude-sonnet-5
 
 tools:
+  bash: false
+  cli-proxy: false
   github:
     toolsets: [context, repos, issues, users]
     min-integrity: none
@@ -59,6 +61,7 @@ safe-outputs:
 
 concurrency:
   group: triage-issue-${{ github.event.inputs.issue-number || github.event.issue.number }}
+  job-discriminator: ${{ github.run_id }}
   cancel-in-progress: true
 
 timeout-minutes: 10
