@@ -64,7 +64,8 @@ jobs:
               console.log('Did not find modded string in issue body, searching attachments')
               // Try searching in attachments
               // There is currently no API so try to find URL then get attachment content, see https://github.community/t/get-files-attached-in-issue/117443
-              const attachmentPattern = new RegExp(`https://github\\.com/${owner}/${repo}/files/\\d+/[a-zA-Z0-9_\\-.]+`, 'g')
+              // Matches both the legacy `https://github.com/<owner>/<repo>/files/...` URLs and the current `https://github.com/user-attachments/files/...` URLs
+              const attachmentPattern = new RegExp(`https://github\\.com/(?:${owner}/${repo}|user-attachments)/files/\\d+/[a-zA-Z0-9_\\-.]+`, 'g')
               const attachmentUrls = Array.from(issueBody.matchAll(attachmentPattern), m => m[0])
               console.log('Found attachment URLs', attachmentUrls)
               for (const url of attachmentUrls) {
